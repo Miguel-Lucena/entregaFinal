@@ -1,29 +1,26 @@
 export class ReciptPage {
     constructor(){
-        this.numberCardInput = '//p[@id="creditCard"]';
-        this.totalPriceProducts = '//p[@id="totalPrice"]';
+        this.nameClientP = '//p[@id="name"]'
+        this.numberCardP = '//p[@id="creditCard"]';
+        this.totalPriceProductsP = '//p[@id="totalPrice"]';
         this.thankYouButton = '//button[text()="Thank you"]';
-        this.logoutButton = '//button[@id="logout"]'
     }
 
     checkFirstNameClient(FirstName, LastName){
-        cy.xpath(`//p[@id="name"]`, {timeout:20000}).should("be.visible").and("have.text", `${FirstName} ${LastName} has succesfully purchased the following items`);
+        cy.xpath(this.nameClientP, {timeout:20000}).should("be.visible").and("have.text", `${FirstName} ${LastName} has succesfully purchased the following items`);
     }
     checkPNameProduct(nameProduct){
         cy.xpath(`//p[@id="${nameProduct}"]`).should("be.visible").and("have.text", nameProduct);
     }
     checkNumberCard(numberCard){
-        cy.xpath(this.numberCardInput).should("be.visible").and("have.text", numberCard);
+        cy.xpath(this.numberCardP).should("be.visible").and("have.text", numberCard);
     }
     checkTotalPriceProducts(totalPriceProducts){
-        cy.xpath(this.totalPriceProducts).invoke('text').then((text) =>{
+        cy.xpath(this.totalPriceProductsP).invoke('text').then((text) =>{
             assert.equal(text, `You have spent $${totalPriceProducts}`)
         })
     }
     clickThankYouButton(){
         cy.xpath(this.thankYouButton).click();
-    }
-    clickLogoutButton(){
-        cy.xpath(this.logoutButton).click();
     }
 }

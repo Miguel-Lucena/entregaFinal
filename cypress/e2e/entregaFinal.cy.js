@@ -4,6 +4,7 @@ import { ProductsPage} from "../support/pages/productsPage"
 import { ShoppingCartPage } from "../support/pages/shoppingCartPage"
 import { CheckoutPage }   from "../support/pages/checkoutPage"
 import { ReciptPage } from "../support/pages/reciptPage"
+import { NavbarPage } from "../support/pages/navbarPage"
 
 
 describe('empty spec', () => {
@@ -21,6 +22,7 @@ describe('empty spec', () => {
   const shoppingCartPage = new ShoppingCartPage();
   const checkoutPage = new CheckoutPage();
   const reciptPage = new ReciptPage();
+  const navbarPage = new NavbarPage();
 
 
   before("beforetest", ()=>{
@@ -31,9 +33,7 @@ describe('empty spec', () => {
     cy.fixture("checkOut").then(dataCheck => {
       dataCheckOut=dataCheck;
     })
-  })
 
-  it('test-Entrega-Final', () => {
     cy.request({
       method: 'POST',
       url: "https://pushing-it-backend.herokuapp.com/api/register",
@@ -62,6 +62,9 @@ describe('empty spec', () => {
       window.localStorage.setItem("user", response.body.user.username);
     })
     cy.visit("");
+  })
+
+  it('test-Entrega-Final', () => {
     homePage.clickLinkOnlineShop();
     productsPage.clickButtonAddToCartProduct(product.firstProduct.nameProduct);
     productsPage.clikCloseButton();
@@ -85,7 +88,7 @@ describe('empty spec', () => {
     reciptPage.checkNumberCard(dataCheckOut.cardNumber);
     reciptPage.checkTotalPriceProducts(totalPriceProducts)
     reciptPage.clickThankYouButton();
-    reciptPage.clickLogoutButton();
+    navbarPage.clickLogoutButton();
   })
 
   after("afterTest", ()=>{
