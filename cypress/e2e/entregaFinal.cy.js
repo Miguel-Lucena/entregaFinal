@@ -33,8 +33,7 @@ describe('empty spec', () => {
     })
   })
 
-
-  beforeEach("beforeeachtest", ()=>{
+  it('test-Entrega-Final', () => {
     cy.request({
       method: 'POST',
       url: "https://pushing-it-backend.herokuapp.com/api/register",
@@ -49,10 +48,7 @@ describe('empty spec', () => {
     }).then(response=> {
       expect(response.status).to.equal(200);
     })
-  })
 
-
-  it('test-Entrega-Final', () => {
     cy.request({
       method: "POST", 
       url: "https://pushing-it-backend.herokuapp.com/api/login",
@@ -88,11 +84,15 @@ describe('empty spec', () => {
     reciptPage.checkPNameProduct(product.secondProduct.nameProduct);
     reciptPage.checkNumberCard(dataCheckOut.cardNumber);
     reciptPage.checkTotalPriceProducts(totalPriceProducts)
+    reciptPage.clickThankYouButton();
+    reciptPage.clickLogoutButton();
+  })
+
+  after("afterTest", ()=>{
     cy.request({
       method: "DELETE",
       url: `https://pushing-it-backend.herokuapp.com/api/deleteuser/${userName}`,
     }).then(response=>{
-      cy.log(response)
       expect(response.status).to.equal(200);
     })
   })

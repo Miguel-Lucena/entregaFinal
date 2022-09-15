@@ -1,7 +1,9 @@
 export class ReciptPage {
     constructor(){
         this.numberCardInput = '//p[@id="creditCard"]';
-        this.totalPriceProducts = '//p[@id="totalPrice"]'
+        this.totalPriceProducts = '//p[@id="totalPrice"]';
+        this.thankYouButton = '//button[text()="Thank you"]';
+        this.logoutButton = '//button[@id="logout"]'
     }
 
     checkFirstNameClient(FirstName, LastName){
@@ -17,5 +19,11 @@ export class ReciptPage {
         cy.xpath(this.totalPriceProducts).invoke('text').then((text) =>{
             assert.equal(text, `You have spent $${totalPriceProducts}`)
         })
+    }
+    clickThankYouButton(){
+        cy.xpath(this.thankYouButton).click();
+    }
+    clickLogoutButton(){
+        cy.xpath(this.logoutButton).click();
     }
 }
